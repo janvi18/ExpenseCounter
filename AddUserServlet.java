@@ -9,27 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.CategoryDao;
+import com.bean.UserBean;
+import com.dao.UserDao;
 
-@WebServlet("/AddCategoryServlet")
-public class AddCategoryServlet extends HttpServlet{
-	
+@WebServlet("/AddUserServlet")
+public class AddUserServlet extends HttpServlet{
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		String categoryName = request.getParameter("categoryName");
-		String subcategoryName = request.getParameter("subcategoryName");
-		String expense = request.getParameter("expense");
+		String firstName = request.getParameter("firstName");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
 		
-			CategoryDao catdao = new CategoryDao();
-			
-			int i = catdao.insertCategory(categoryName, subcategoryName, expense);
+		UserBean userbean = new UserBean();
+		userbean.setfirstName(firstName);
+		userbean.setEmail(email);
+		userbean.setPassword(password);
+		
+			UserDao userdao = new UserDao();
+			userdao.insertUser(userbean);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
-			rd.forward(request, response);
+			rd.forward(request, response);	
 	}
-	
+
 }

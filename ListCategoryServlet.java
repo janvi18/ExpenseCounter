@@ -2,6 +2,7 @@ package com.controller;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bean.CategoryBean;
 import com.dao.CategoryDao;
 
 
@@ -19,8 +21,8 @@ public class ListCategoryServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		CategoryDao catDao = new CategoryDao();
-		ResultSet rs = catDao.getCategory();
-		request.setAttribute("rs", rs);
+		ArrayList<CategoryBean> cat = catDao.getAllCategory();
+		request.setAttribute("cat", cat);
 		RequestDispatcher rd = request.getRequestDispatcher("ListCategory.jsp");
 		rd.forward(request, response);
 		}

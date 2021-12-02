@@ -1,3 +1,5 @@
+<%@page import="com.bean.CategoryBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -9,11 +11,10 @@
 </head>
 <body>
 	<%
-		ResultSet rs = (ResultSet) request.getAttribute("rs");
+		ArrayList<CategoryBean> cat = (ArrayList<CategoryBean>) request.getAttribute("cat");
 	%>
 	<h2>List Category</h2>
 	
-	<a href="">List Category</a>
 	<table border="1">
 		<tr>
 			<th>CategoryId</th>
@@ -23,20 +24,15 @@
 			<th>Action</th>
 		</tr>
 		<%
-			while (rs.next()) {
-				int categoryId = rs.getInt("categoryId");
-				String categoryName = rs.getString("categoryName");
-				String subCategoryName = rs.getString("subcategoryName");
-				String expense = rs.getString("expense");
+			for (int i = 0; i < cat.size(); i++) {
 		%>
 		<tr>
-			<td><%=categoryId%></td>
-			<td><%=categoryName%></td>
-			<td><%=subCategoryName%></td>
-			<td><%=expense%></td>
-			<td><a href="DeleteCategoryServlet?UserId=<%=categoryId%>">Delete</a>
-			    <a href="ViewCategoryServlet?UserId=<%=categoryId%>">View</a>
-			</td>
+			<td><%=cat.get(i).getcategoryId() %></td>
+			<td><%=cat.get(i).getcategoryName()%></td>
+			<td><%=cat.get(i).getsubcategoryName()%></td>
+			<td><%=cat.get(i).getexpense()%></td>
+			<td><a href="DeleteCategoryServlet?categoryId=<%=cat.get(i).getcategoryId()%>">Delete</a>
+			<a href="EditCategoryServlet?categoryId=<%=cat.get(i).getcategoryId()%>">Edit</a></td>
 		</tr>
 		<%
 			}

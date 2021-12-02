@@ -13,22 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 import com.dao.UserDao;
 
 @WebServlet("/ViewUserServlet")
+public class ViewUserServlet extends HttpServlet{
+	
+	private static final long serialVersionUID = 1L;
 
-public class ViewUserServlet extends HttpServlet {
-	protected void service(HttpServletRequest request, HttpServletResponse response)
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-
-
-		int UserId = Integer.parseInt(request.getParameter("UserId"));
+		
+int userId = Integer.parseInt(request.getParameter("userId"));
+		
 		UserDao userDao = new UserDao();
-
-		ResultSet rs = userDao.getUserById(UserId);
+		
+		ResultSet rs = userDao.getUserById(userId);
 		request.setAttribute("rs", rs);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("ListUser.jsp"); 
 		
+		RequestDispatcher rd = request.getRequestDispatcher("ViewUser.jsp");
 		rd.forward(request, response);
 		
 	}
-
+	
 }

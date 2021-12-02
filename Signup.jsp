@@ -7,7 +7,7 @@
 <body>
 
 	<h2>Grab your freebies now!</h2>
-	<form action="SignupServlet">
+	<form action="AddUserServlet">
 	
 		<div class="form-group">
 			<label for="email">FirstName:</label> 

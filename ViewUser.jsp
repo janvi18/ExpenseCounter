@@ -10,19 +10,20 @@
 <body>
 <%
 		ResultSet rs = (ResultSet) request.getAttribute("rs");
-		rs.next();  
+		rs.next(); //1st record 
 		int userId = rs.getInt("userId");
-		String firstName = rs.getString("firstName");
+		String FirstName = rs.getString("FirstName");
 		String email = rs.getString("email");
 		String password = rs.getString("password");
 	
 	%>
-	<h2>View Users</h2>
+	<h2>View User</h2>
 
 			<b>UserId</b> :<%=userId%><br>
-			<b>FirstName</b> :<%=firstName%><br>
+			<b>FirstName</b> :<%=FirstName%><br>
 			<b>Email</b> :<%=email%><bR>
 			<b>Password</b> :<%=password%><br>
 	<a href="ListUserServlet">Back</a>
+	<a href="UpdateUserServlet?userId=<%=userId%>">Update User</a>
 </body>
 </html>

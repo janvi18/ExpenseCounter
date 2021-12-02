@@ -17,13 +17,11 @@ import com.dao.UserDao;
 		protected void service(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 
-			int UserId = Integer.parseInt(request.getParameter("UserId"));
+			int userId = Integer.parseInt(request.getParameter("userId"));
 
 			UserDao userDao = new UserDao();
-			userDao.deleteUser(UserId);
+			userDao.deleteUser(userId);
 
-			RequestDispatcher rd = request.getRequestDispatcher("ListUserServlet");
-			rd.forward(request, response);
-
+			response.sendRedirect("ListUserServlet");
 }
 }

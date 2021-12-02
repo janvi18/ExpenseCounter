@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.dao.CategoryDao;
 
-@WebServlet("/AddCategoryServlet")
-public class AddCategoryServlet extends HttpServlet{
+@WebServlet("/EditCategoryServlet")
+public class EditCategoryServlet extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -20,16 +21,13 @@ public class AddCategoryServlet extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		String categoryName = request.getParameter("categoryName");
-		String subcategoryName = request.getParameter("subcategoryName");
-		String expense = request.getParameter("expense");
-		
-			CategoryDao catdao = new CategoryDao();
-			
-			int i = catdao.insertCategory(categoryName, subcategoryName, expense);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
-			rd.forward(request, response);
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		CategoryDao catdao = new CategoryDao();
+
+		ResultSet rs = catdao.getCategoryById(categoryId);
+		request.setAttribute("rs",rs);	
+		RequestDispatcher rd = request.getRequestDispatcher("EditCategory.jsp");
+		rd.forward(request,response);
+
 	}
-	
 }

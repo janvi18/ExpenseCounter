@@ -7,8 +7,9 @@
 <title>Dashboard</title>
 </head>
 <body>
-<h2>Welcome to dashboard</h2>
-	<a href="AddCategory.jsp">Add Category</a> <br>
-	<a href="ListCategory.jsp">List Category</a> <br>
+<h2>----------Welcome to Dashboard----------</h2>
+	<a href="AddCategory.jsp">Add Category</a> <br><br>
+	<a href="ListCategoryServlet">List Category</a> <br><br>
+	<a href="ListUserServlet">List Users</a>
 </body>
 </html>

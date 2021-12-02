@@ -3,7 +3,10 @@ package com.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import com.bean.CategoryBean;
+import com.bean.UserBean;
 import com.util.DbConnection;
 
 public class CategoryDao {
@@ -23,16 +26,37 @@ public class CategoryDao {
 		}
 			return i;
 		}
-	public ResultSet getCategory() {
-		ResultSet rs = null;
+	
+	public ArrayList<CategoryBean> getAllCategory() {
+
 		try {
 			Connection con = DbConnection.openConnection();
 			PreparedStatement pstmt = con.prepareStatement("select * from category");
-			rs = pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();
+			
+			ArrayList<CategoryBean> cat = new ArrayList<>();
+			
+			while (rs.next()) {
+				String categoryName = rs.getString("categoryName");
+				String subcategoryName = rs.getString("subcategoryName");
+				String expense = rs.getString("expense");
+				
+				CategoryBean catBean = new CategoryBean();
+				
+				catBean.setcategoryId(rs.getInt("categoryId"));
+				catBean.setcategoryName(categoryName);
+				catBean.setsubcategoryName(subcategoryName);
+				catBean.setexpense(expense);
+				
+				cat.add(catBean);
+				
+			}
+			rs.close();
+			return cat;
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return rs;
+		return null;
 	}
 	public void deleteCategory(int categoryId) {
 
@@ -67,7 +91,7 @@ public class CategoryDao {
 
 		try (Connection con = DbConnection.openConnection();
 				PreparedStatement pstmt = con
-						.prepareStatement("update category set categoryName = ? , subcategoryName = ? ,expense = ? where categoryId = ? ");) {
+						.prepareStatement("Update category set categoryName = ? , subcategoryName = ? ,expense = ? where categoryId = ? ");) {
 
 			pstmt.setString(1, categoryName);
 			pstmt.setString(2, subcategoryName);
@@ -75,9 +99,9 @@ public class CategoryDao {
 			pstmt.setInt(4, categoryId);
 			int i = pstmt.executeUpdate();
 			if (i == 1) {
-				System.out.println("category update");
+				System.out.println("Category update");
 			} else {
-				System.out.println("category updation failed...");
+				System.out.println("Category updation failed...");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
