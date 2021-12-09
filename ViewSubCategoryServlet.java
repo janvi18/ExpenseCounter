@@ -1,7 +1,6 @@
 package com.controller;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,11 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bean.CategoryBean;
-import com.dao.CategoryDao;
+import com.bean.SubCategoryBean;
+import com.dao.SubCategoryDao;
 
-@WebServlet("/ViewCategoryServlet")
-public class ViewCategoryServlet extends HttpServlet{
+@WebServlet("/ViewSubCategoryServlet")
+public class ViewSubCategoryServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,12 +23,12 @@ protected void service(HttpServletRequest request, HttpServletResponse response)
 	
 	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 	
-	CategoryDao catDao = new CategoryDao();
+	SubCategoryDao scatDao = new SubCategoryDao();
 	
-	CategoryBean rs = catDao.getCategoryById(categoryId);
+	SubCategoryBean rs = scatDao.getCategoryById(categoryId);
 	request.setAttribute("rs", rs);
 	
-	RequestDispatcher rd = request.getRequestDispatcher("ViewCategory.jsp");
+	RequestDispatcher rd = request.getRequestDispatcher("ViewSubCategory.jsp");
 	rd.forward(request, response);	
 
 	}

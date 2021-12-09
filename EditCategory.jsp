@@ -1,3 +1,4 @@
+<%@page import="com.bean.CategoryBean"%>
 <%@page import="java.sql.ResultSet"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -9,15 +10,12 @@
 </head>
 <body>
 	<%
-		ResultSet rs = (ResultSet) request.getAttribute("rs");
-		rs.next();
+	CategoryBean cb = (CategoryBean) request.getAttribute("cb");
 	%>
 	<form action="UpdateCategoryServlet" method="post">
-	
-		CategoryName: <input type="text" name="categoryName"value="<%=rs.getString("categoryName")%>" /><br> 
-		SubCategoryName: <input type="text" name="subcategoryName" value="<%=rs.getString("subcategoryName")%>" /><Br>
-		Expense: <input type="expense" name="expense" value="<%=rs.getString("expense")%>" /><br>
-		<input type="hidden" name="categoryId"value="<%=rs.getInt("categoryId")%>" /> 
+		CategoryName: <input type="text" name="categoryName"value="<%=cb.getcategoryName()%>" /><br> 
+		
+		<input type="hidden" name="categoryId"value="<%=cb.getcategoryId()%>" /> 
 		<input type="submit"value="Update Category" />
 	</form>
 </body>

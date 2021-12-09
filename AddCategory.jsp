@@ -11,8 +11,7 @@
 <h1>Add Category</h1>
 <form action="AddCategoryServlet">
 			Category Name : <input type="text" name="categoryName"><br><br>
-			Sub-Cateogry Name : <input type="text" name="subcategoryName"><br><br>
-			Expense : <input type="number" name="expense"> <br><br>
+			 
 			<input type="submit" value="Submit"><br>
 		</form>
 

@@ -30,11 +30,18 @@ public class AddUserServlet extends HttpServlet{
 		userbean.setEmail(email);
 		userbean.setPassword(password);
 		
-			UserDao userdao = new UserDao();
-			userdao.insertUser(userbean);
+			int i = 0;
+			UserDao userDao = new UserDao();
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
-			rd.forward(request, response);	
+			i = userDao.insertUser(userbean);
+			
+			RequestDispatcher rd = null;
+			if(i == 1)
+			{
+				rd = request.getRequestDispatcher("Login.jsp");
+			}else {
+				rd = request.getRequestDispatcher("Fail.jsp");
+			}
+			rd.forward(request, response);
 	}
-
 }

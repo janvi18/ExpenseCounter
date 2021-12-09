@@ -8,21 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.CategoryDao;
+import com.dao.SubCategoryDao;
 
-@WebServlet("/UpdateCategoryServlet")
-public class UpdateCategoryServlet extends HttpServlet {
+@WebServlet("/UpdateSubCategoryServlet")
+public class UpdateSubCategoryServlet extends HttpServlet {
 
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
 	
 	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-	String categoryName = request.getParameter("categoryName");
-	CategoryDao catDao = new CategoryDao();
-	catDao.updateCategory(categoryId,categoryName);	
-	response.sendRedirect("ListCategoryServlet"); 
+	String subcategoryName = request.getParameter("subcategoryName");
+	SubCategoryDao scatDao = new SubCategoryDao();
+	scatDao.updateSubCategory(categoryId,subcategoryName);	
+	response.sendRedirect("ListSubCategoryServlet"); 
 	
-}
-	
+	}	
 }

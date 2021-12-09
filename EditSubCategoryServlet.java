@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bean.CategoryBean;
-import com.dao.CategoryDao;
+import com.bean.SubCategoryBean;
+import com.dao.SubCategoryDao;
 
-@WebServlet("/EditCategoryServlet")
-public class EditCategoryServlet extends HttpServlet{
+@WebServlet("/EditSubCategoryServlet")
+public class EditSubCategoryServlet extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -23,12 +23,12 @@ public class EditCategoryServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		CategoryDao catdao = new CategoryDao();
+		SubCategoryDao scatdao = new SubCategoryDao();
 
-		CategoryBean cb = catdao.getCategoryById(categoryId);
-		System.out.println(cb);
-		request.setAttribute("cb",cb);	
-		RequestDispatcher rd = request.getRequestDispatcher("EditCategory.jsp");
+		SubCategoryBean scb = scatdao.getCategoryById(categoryId);
+		System.out.println(scb);
+		request.setAttribute("scb",scb);	
+		RequestDispatcher rd = request.getRequestDispatcher("EditSubCategory.jsp");
 		rd.forward(request,response);
 	}
 }

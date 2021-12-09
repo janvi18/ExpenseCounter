@@ -10,6 +10,11 @@
 <h2>----------Welcome to Dashboard----------</h2>
 	<a href="AddCategory.jsp">Add Category</a> <br><br>
 	<a href="ListCategoryServlet">List Category</a> <br><br>
-	<a href="ListUserServlet">List Users</a>
+	<a href="ListUserServlet">List Users</a> <br><br>
+	<a href="AddSubCategory.jsp">Add Sub Category</a><br><br>
+	<a href="ListSubCategoryServlet.jsp">List Sub-Category</a>
+	<a href="ListAllExpenseServlet.jsp">List Expenses</a>
+
+	
 </body>
 </html>

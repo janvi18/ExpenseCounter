@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dao.CategoryDao;
+import com.dao.SubCategoryDao;
 
-@WebServlet("/AddCategoryServlet")
-public class AddCategoryServlet extends HttpServlet{
+@WebServlet("/AddSubCategoryServlet")
+public class AddSubCategoryServlet extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -20,14 +20,13 @@ public class AddCategoryServlet extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		String categoryName = request.getParameter("categoryName");
-		 
-			CategoryDao catdao = new CategoryDao();
+		String subcategoryName = request.getParameter("subcategoryName");
+		 	
+			SubCategoryDao scatdao = new SubCategoryDao();
 			
-			int i = catdao.insertCategory(categoryName);
+			int i = scatdao.insertSubCategory(subcategoryName);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("Dashborad.jsp");
 			rd.forward(request, response);
-	}
-	
+	}	
 }

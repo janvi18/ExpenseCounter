@@ -5,33 +5,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServlet;
 
 import com.bean.UserBean;
 import com.util.DbConnection;
 
 public class UserDao {
-	
-	public void insertUser(UserBean userbean) {
-	try {
-		Connection con = DbConnection.openConnection();
-		PreparedStatement pstmt = con.prepareStatement("insert into user (firstName,email,password) values (?,?,?)");
-		pstmt.setString(1, userbean.getfirstName());
-		pstmt.setString(2, userbean.getEmail());
-		pstmt.setString(3, userbean.getPassword());
-		
-	int i = pstmt.executeUpdate();
-	}catch(Exception e) {
+	public int insertUser(UserBean userBean) {
+		int i = -1;
+		try {
+			Connection conn = DbConnection.openConnection();
+			PreparedStatement pstmt = conn.prepareStatement("insert into user (firstName,email,password) values (?,?,?)");
+			System.out.println(userBean.getfirstName()+ " " +userBean.getEmail() + " " + userBean.getPassword());
+			pstmt.setString(1, userBean.getfirstName());
+			pstmt.setString(2, userBean.getEmail());
+			pstmt.setString(3, userBean.getPassword());
+			i = pstmt.executeUpdate();
+		} catch (Exception e) {
 			e.printStackTrace();
-		
-	}
+		}
+		return i;
 	}
 	
 	public ArrayList<UserBean> getAllUser() {
 	
 		try {
 			Connection con = DbConnection.openConnection();
-			PreparedStatement pstmt = con.prepareStatement("select * from user");
+			PreparedStatement pstmt = con.prepareStatement("select * from advjava.user");
 			ResultSet rs = pstmt.executeQuery();
 			
 			ArrayList<UserBean> users = new ArrayList<>();
@@ -39,7 +38,7 @@ public class UserDao {
 
 			while (rs.next()) {
 				
-				String firstName = rs.getString("firstName");
+				String firstName = rs.getString("FirstName");
 				String email = rs.getString("email");
 				String password= rs.getString("password");
 				
@@ -50,6 +49,9 @@ public class UserDao {
 				userBean.setEmail(email);
 				userBean.setPassword(password);
 				
+				System.out.println(userBean.getfirstName());
+				System.out.println(userBean.getEmail());
+				System.out.println(userBean.getPassword());
 				users.add(userBean);
 				
 			}
@@ -64,7 +66,7 @@ public class UserDao {
 	public void deleteUser(int userId) {
 
 		try (Connection con = DbConnection.openConnection();
-				PreparedStatement pstmt = con.prepareStatement("delete from user where userId = ?");
+				PreparedStatement pstmt = con.prepareStatement("delete from advjava.user where userId = ?");
 
 		) {
 
@@ -80,7 +82,7 @@ public class UserDao {
 		try {
 			Connection con = DbConnection.openConnection();
 			
-			PreparedStatement pstmt = con.prepareStatement("select * from user where userId = ?");
+			PreparedStatement pstmt = con.prepareStatement("select * from advjava.user where userId = ?");
 			pstmt.setInt(1, userId);
 
 			rs = pstmt.executeQuery();
@@ -95,7 +97,7 @@ public class UserDao {
 
 		try (Connection con = DbConnection.openConnection();
 				PreparedStatement pstmt = con
-						.prepareStatement("update user set firstName = ?, email = ? , password = ? where userId = ? ");) {
+						.prepareStatement("update advjava.user set firstName = ?, email = ? , password = ? where userId = ? ");) {
 
 			pstmt.setString(1, firstName);
 			pstmt.setString(2, email);
@@ -112,13 +114,14 @@ public class UserDao {
 		}
 
 	}
+	
 	public ResultSet getUserByName(String firstName) {
 
 		ResultSet rs = null;
 		try {
 
 			Connection con = DbConnection.openConnection();
-			PreparedStatement pstmt = con.prepareStatement("select * from user where firstName like ?");
+			PreparedStatement pstmt = con.prepareStatement("select * from advjava.user where firstName like ?");
 			pstmt.setString(1, firstName);
 
 			rs = pstmt.executeQuery();
@@ -129,4 +132,55 @@ public class UserDao {
 
 		return null;
 	}
+
+	public static ResultSet validate(UserBean userBean) {
+		ResultSet rs = null;
+		try {
+			Connection conn = DbConnection.openConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select * from user where email=? AND Password=?");
+			pstmt.setString(1, userBean.getEmail());
+			pstmt.setString(2, userBean.getPassword());
+			rs = pstmt.executeQuery();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rs;
+	}
+	public static boolean User_Type(UserBean bean) {
+		boolean type = false;
+		try {
+			Connection conn = DbConnection.openConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select User_Type from users where email=? AND Password=?");
+			pstmt.setString(1, bean.getEmail());
+			pstmt.setString(2, bean.getPassword());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				type = rs.getBoolean(1);
+				System.out.println(type);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return type;
+	}
+
+	public static String User_name(UserBean userBean) {
+		String name = "";
+		try {
+			Connection conn = DbConnection.openConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select Name from users where email=? AND Password=?");
+			pstmt.setString(1, userBean.getEmail());
+			pstmt.setString(2, userBean.getPassword());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				name = rs.getString(1);
+				System.out.println(name);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return name;
+	}
+
+	
 }

@@ -19,8 +19,7 @@
 		<tr>
 			<th>CategoryId</th>
 			<th>CategoryName</th>
-			<th>SubCategoryName</th>
-			<th>Expense</th>
+		 
 			<th>Action</th>
 		</tr>
 		<%
@@ -29,8 +28,7 @@
 		<tr>
 			<td><%=cat.get(i).getcategoryId() %></td>
 			<td><%=cat.get(i).getcategoryName()%></td>
-			<td><%=cat.get(i).getsubcategoryName()%></td>
-			<td><%=cat.get(i).getexpense()%></td>
+			 
 			<td><a href="DeleteCategoryServlet?categoryId=<%=cat.get(i).getcategoryId()%>">Delete</a>
 			<a href="EditCategoryServlet?categoryId=<%=cat.get(i).getcategoryId()%>">Edit</a></td>
 		</tr>
