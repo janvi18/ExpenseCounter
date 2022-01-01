@@ -21,11 +21,11 @@ public class ViewSubCategoryServlet extends HttpServlet{
 protected void service(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
 	
-	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+	int subcategoryId = Integer.parseInt(request.getParameter("subcategoryId"));
 	
 	SubCategoryDao scatDao = new SubCategoryDao();
 	
-	SubCategoryBean rs = scatDao.getCategoryById(categoryId);
+	SubCategoryBean rs = scatDao.getCategoryById(subcategoryId);
 	request.setAttribute("rs", rs);
 	
 	RequestDispatcher rd = request.getRequestDispatcher("ViewSubCategory.jsp");

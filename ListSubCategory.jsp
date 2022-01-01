@@ -10,30 +10,33 @@
 </head>
 <body>
 <%
-		ArrayList<SubCategoryBean> scat = (ArrayList<SubCategoryBean>) request.getAttribute("scat");
+		ArrayList<SubCategoryBean> subCategories = (ArrayList<SubCategoryBean>) request
+				.getAttribute("subCategories");
 	%>
-	<h2>List Sub-Category</h2>
-	
+
+	<a href="AddSubCategory.jsp">Add Sub Category</a>
+	<br>
 	<table border="1">
 		<tr>
-			<th>CategoryId</th>
-			<th>Sub-CategoryName</th>
-		 
-			<th>Action</th>
+			<td>SubCategoryId</td>
+			<td>SubCategoryName</td>
+			<td>Action</td>
 		</tr>
 		<%
-			for (int i = 0; i < scat.size(); i++) {
+			for (SubCategoryBean cb : subCategories) {
 		%>
 		<tr>
-			<td><%=scat.get(i).getCategoryId() %></td>
-			<td><%=scat.get(i).getSubcategoryName()%></td>
-			 
-			<td><a href="DeleteSubCategoryServlet?categoryId=<%=scat.get(i).getCategoryId()%>">Delete</a>
-			<a href="EditSubCategoryServlet?categoryId=<%=scat.get(i).getCategoryId()%>">Edit</a></td>
+			<td><%=cb.getSubCategoryId()%></td>
+			<td><%=cb.getSubCategoryName()%></td>
+			<td><a
+				href="DeleteSubCategoryController?subCategoryId=<%=cb.getSubCategoryId()%>">
+					Delete
+			</a></td>
 		</tr>
 		<%
 			}
 		%>
 	</table>
+
 </body>
 </html>

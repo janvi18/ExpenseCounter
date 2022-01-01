@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +18,16 @@ import com.dao.UserDao;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet{
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		ServletConfig config=getServletConfig();  
+	    String Email=config.getInitParameter("Email");  
+		String Password = config.getInitParameter("Password");
+		
+	
 		
 		UserBean userBean = new UserBean();	
 		userBean.setEmail(email);

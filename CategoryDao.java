@@ -6,100 +6,44 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.bean.CategoryBean;
-import com.bean.UserBean;
 import com.util.DbConnection;
 
 public class CategoryDao {
-	
-	public int insertCategory(String categoryName) {
-		int i = -1;
-		try {
-			Connection con = DbConnection.openConnection();
-			PreparedStatement pstmt = con.prepareStatement("insert into category (categoryName) values (?)");
-			pstmt.setString(1, categoryName);
-			
-			i = pstmt.executeUpdate();
-		}catch(Exception e) {
-				e.printStackTrace();
-		}
-			return i;
-		}
-		
-	public ArrayList<CategoryBean> getAllCategory() {
 
-		try {
-			Connection con = DbConnection.openConnection();
-			PreparedStatement pstmt = con.prepareStatement("select * from category");
+	public ArrayList<CategoryBean> getAllCategories() {
+
+		ArrayList<CategoryBean> categories = new ArrayList<>();
+
+		try (Connection con = DbConnection.openConnection();
+				PreparedStatement pstmt = con.prepareStatement("select * from category");) {
+
 			ResultSet rs = pstmt.executeQuery();
-			
-			ArrayList<CategoryBean> cat = new ArrayList<>();
-			
+
 			while (rs.next()) {
-				
-				CategoryBean catBean = new CategoryBean();
-				
-				catBean.setcategoryId(rs.getInt("categoryId"));
-				catBean.setcategoryName(rs.getString("categoryName"));
-				
-				cat.add(catBean);			
+
+				CategoryBean cb = new CategoryBean();
+				cb.setCategoryId(rs.getInt("categoryid"));
+				cb.setCategoryName(rs.getString("categoryname"));
+
+				categories.add(cb);
 			}
-			rs.close();
-			return cat;
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public void deleteCategory(int categoryId) {
-
-		try (Connection con = DbConnection.openConnection();
-				PreparedStatement pstmt = con.prepareStatement("delete from category where categoryId = ?");
-		) {
-			pstmt.setInt(1, categoryId);
-			pstmt.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public CategoryBean getCategoryById(int categoryId) {
-		ResultSet rs = null;
-		try {
-			Connection con = DbConnection.openConnection();
-			
-			PreparedStatement pstmt = con.prepareStatement("select * from category where categoryId = ?");
-			pstmt.setInt(1, categoryId);
-		
-			rs = pstmt.executeQuery();
-			CategoryBean cb = new CategoryBean();
-			rs.next();
-			cb.setcategoryId(rs.getInt("categoryId"));
-			cb.setcategoryName(rs.getString("categoryName"));
-			return cb;
-		} catch (Exception e) {
-			System.out.println("error.....");
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	public void updateCategory(int categoryId,   String categoryName ) {
 
+		return categories;
+	}
+
+	public void addCategory(String categoryName) {
 		try (Connection con = DbConnection.openConnection();
-				PreparedStatement pstmt = con
-						.prepareStatement("Update category set categoryName = ?  where categoryId = ? ");) {
+				PreparedStatement pstmt = con.prepareStatement("insert into category (categoryname) values (?)");) {
+
 			pstmt.setString(1, categoryName);
-			pstmt.setInt(2, categoryId);
-			int i = pstmt.executeUpdate();
-			if (i == 1) {
-				System.out.println("Category update");
-			} else {
-				System.out.println("Category updation failed...");
-			}
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 }

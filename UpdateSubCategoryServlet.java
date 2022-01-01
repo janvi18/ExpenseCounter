@@ -17,10 +17,10 @@ public class UpdateSubCategoryServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 		throws ServletException, IOException {
 	
-	int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+	int subcategoryId = Integer.parseInt(request.getParameter("subcategoryId"));
 	String subcategoryName = request.getParameter("subcategoryName");
 	SubCategoryDao scatDao = new SubCategoryDao();
-	scatDao.updateSubCategory(categoryId,subcategoryName);	
+	scatDao.updateSubCategory(subcategoryId,subcategoryName);	
 	response.sendRedirect("ListSubCategoryServlet"); 
 	
 	}	

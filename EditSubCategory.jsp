@@ -14,7 +14,7 @@
 	SubCategoryBean scb = (SubCategoryBean) request.getAttribute("scb");
 	%>
 	<form action="UpdateSubCategoryServlet" method="post">
-		CategoryName: <input type="text" name="subcategoryName"value="<%=scb.getSubcategoryName()%>" /><br> 
+		CategoryName: <input type="text" name="subcategoryName"value="<%=scb.getSubcategoryName()%>"/><br> 
 		
 		<input type="hidden" name="categoryId"value="<%=scb.getCategoryId()%>" /> 
 		<input type="submit"value="Update Sub-Category" />

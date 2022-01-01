@@ -10,39 +10,31 @@
 </head>
 <body>
 	<%
-	ArrayList<UserBean> users = (ArrayList<UserBean>) request.getAttribute("users");
+		ArrayList<UserBean> users = (ArrayList<UserBean>) request.getAttribute("users");
 	%>
-	<%
-	if (users.size() == 0) {
-		out.println("List is Empty");
-	} else {
-	%>
+
+
 	<table border="1">
 		<tr>
-			<th>UserId</th>
-			<th>FirstName</th>
-			<th>Email</th>
-			<th>Password</th>
-			<th>Action</th>
+			<td>UserId</td>
+			<td>FirstName</td>
+			<td>Email</td>
 		</tr>
+
+
 		<%
-		for (int i = 0; i < users.size(); i++) {
+			for (UserBean user : users) {
 		%>
 		<tr>
-			<td><%=users.get(i).getUserId()%></td>
-			<td><%=users.get(i).getfirstName()%></td>
-			<td><%=users.get(i).getEmail()%></td>
-			<td><%=users.get(i).getPassword()%></td>
-
-			<td><a
-				href="DeleteUserServlet?userId=<%=users.get(i).getUserId()%>">Delete</a>
-				<a href="EditUserServlet?userId=<%=users.get(i).getUserId()%>">Edit</a>
-			</td>
+			<td><%=user.getUserId()%></td>
+			<td><%=user.getFirstName()%></td>
+			<td><%=user.getEmail()%></td>
 		</tr>
 		<%
-		}
-		}
+			}
 		%>
+
+
 	</table>
 </body>
 </html>

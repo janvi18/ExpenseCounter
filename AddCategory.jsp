@@ -12,7 +12,7 @@
 <form action="AddCategoryServlet">
 			Category Name : <input type="text" name="categoryName"><br><br>
 			 
-			<input type="submit" value="Submit"><br>
+			<input type="submit" value="Save Category"/> 
 		</form>
 
 </body>

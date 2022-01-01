@@ -12,22 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.dao.CategoryDao;
 
 @WebServlet("/AddCategoryServlet")
-public class AddCategoryServlet extends HttpServlet{
-	
-	private static final long serialVersionUID = 1L;
+public class AddCategoryServlet extends HttpServlet {
 
-	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) 
+	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String categoryName = request.getParameter("categoryName");
-		 
-			CategoryDao catdao = new CategoryDao();
-			
-			int i = catdao.insertCategory(categoryName);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("Dashboard.jsp");
-			rd.forward(request, response);
+
+		CategoryDao categoryDao = new CategoryDao();
+
+		categoryDao.addCategory(categoryName);
+		request.getRequestDispatcher("ListCategoryServlet");
 	}
-	
 }

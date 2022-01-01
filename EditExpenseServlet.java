@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bean.SubCategoryBean;
-import com.dao.SubCategoryDao;
+import com.bean.ExpenseBean;
+import com.dao.ExpenseDao;
 
-@WebServlet("/EditSubCategoryServlet")
-public class EditSubCategoryServlet extends HttpServlet{
+@WebServlet("/EditExpenseServlet") 
+public class EditExpenseServlet extends HttpServlet{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -22,13 +22,13 @@ public class EditSubCategoryServlet extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		int subcategoryId = Integer.parseInt(request.getParameter("subcategoryId"));
-		SubCategoryDao scatdao = new SubCategoryDao();
+		int expenseId = Integer.parseInt(request.getParameter("expenseId"));
+		ExpenseDao edao = new ExpenseDao();
 
-		SubCategoryBean scb = scatdao.getCategoryById(subcategoryId);
-		System.out.println(scb);
-		request.setAttribute("scb",scb);	
-		RequestDispatcher rd = request.getRequestDispatcher("EditSubCategory.jsp");
+		ResultSet ebean = edao.getExpenseById(expenseId);
+		System.out.println(ebean);
+		request.setAttribute("ebean",ebean);	
+		RequestDispatcher rd = request.getRequestDispatcher("EditExpense.jsp");
 		rd.forward(request,response);
 	}
 }
